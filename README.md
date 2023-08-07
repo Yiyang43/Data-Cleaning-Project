@@ -1,7 +1,9 @@
 # Data-Cleaning-Project
 
+# Dataset
 This Project performed data-cleaning on the Nashville Housing Data from Kaggle (https://www.kaggle.com/datasets/tmthyjames/nashville-housing-data?resource=download) using SQL Server to make it easier to use.
 
+# Main Procedures
 Main procedures about this project are:
 
 1. Change data type of the Sale_Date column from datetime to date and update the table.
