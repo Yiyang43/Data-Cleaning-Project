@@ -36,8 +36,8 @@ Where a.PropertyAddress is null
 
 Update a
 SET PropertyAddress = ISNULL(a.PropertyAddress,b.PropertyAddress)
-From PortfolioProject.dbo.NashvilleHousing a
-JOIN PortfolioProject.dbo.NashvilleHousing b
+From data_cleaning.NashvilleHousing a
+JOIN data_cleaning.NashvilleHousing b
 	on a.ParcelID = b.ParcelID
 	AND a.[UniqueID ] <> b.[UniqueID ]
 Where a.PropertyAddress is null
@@ -47,7 +47,7 @@ Where a.PropertyAddress is null
 -- Breaking out Address into Individual Columns (Address, City, State)
 
 Select PropertyAddress
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 -- Where PropertyAddress is null
 -- order by ParcelID
 
@@ -55,7 +55,7 @@ SELECT
 SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1 ) as Address
 , SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1 , LEN(PropertyAddress)) as Address
 
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 
 ALTER TABLE NashvilleHousing
@@ -73,17 +73,16 @@ SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddres
 
 
 Select *
-From PortfolioProject.dbo.NashvilleHousing
-
+From data_cleaning.NashvilleHousing
 
 Select OwnerAddress
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 Select
 PARSENAME(REPLACE(OwnerAddress, ',', '.') , 3)
 ,PARSENAME(REPLACE(OwnerAddress, ',', '.') , 2)
 ,PARSENAME(REPLACE(OwnerAddress, ',', '.') , 1)
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 ALTER TABLE NashvilleHousing
 Add OwnerSplitAddress Nvarchar(255);
@@ -104,7 +103,7 @@ Update NashvilleHousing
 SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', '.') , 1)
 
 Select *
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 
 
@@ -112,7 +111,7 @@ From PortfolioProject.dbo.NashvilleHousing
 
 
 Select Distinct(SoldAsVacant), Count(SoldAsVacant)
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 Group by SoldAsVacant
 order by 2
 
@@ -124,7 +123,7 @@ Select SoldAsVacant
 	   When SoldAsVacant = 'N' THEN 'No'
 	   ELSE SoldAsVacant
 	   END
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 
 Update NashvilleHousing
@@ -151,7 +150,7 @@ Select *,
 					UniqueID
 					) row_num
 
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 -- order by ParcelID
 )
 Select *
@@ -162,8 +161,7 @@ Order by PropertyAddress
 
 
 Select *
-From PortfolioProject.dbo.NashvilleHousing
-
+From data_cleaning.NashvilleHousing
 
 
 
@@ -173,8 +171,8 @@ From PortfolioProject.dbo.NashvilleHousing
 
 
 Select *
-From PortfolioProject.dbo.NashvilleHousing
+From data_cleaning.NashvilleHousing
 
 
-ALTER TABLE PortfolioProject.dbo.NashvilleHousing
+ALTER TABLE data_cleaning.NashvilleHousing
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress, SaleDate
